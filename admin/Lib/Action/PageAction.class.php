@@ -30,15 +30,17 @@ class PageAction extends CommonAction{
 
 	//审核页面列表
 	public function verifylist(){
-		//获取审核页面信息
-		$map['status'] = array('eq',2);
+		//获取分页信息
+		$p = I('post.pageNum',1);	//页码
+		$numPerPage = I('post.numPerPage',15);	//每页显示条数
+
+		//获取审核文章信息
+		$map['status'] = array('eq','2');
 		$map['type'] = array('like','%page%');
 		$count = $this->Article->where($map)->count();
-		$Page = new Page($count,15);
-		$Page->setConfig('theme','<span style="float:left;line-height:34px;margin-right:10px;">%totalRow% %header% %nowPage%/%totalPage%页</span> <ul> %upPage% %first% %prePage% %linkPage% %nextPage% %end% %downPage%</ul>');
-		$show2 = $Page->show();
-		$verifylist = $this->Article->where($map)->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
-		$this->assign('verifylist',$verifylist)->assign('page2',$show2)->display();
+
+		$verifylist = $this->Article->where($map)->order('id desc')->limit(($p-1)*$numPerPage,$numPerPage)->select();
+		$this->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('verifylist',$verifylist)->display();
 	}
 
 	//回收站页面列表

@@ -6,7 +6,7 @@
 </form>
 
 <div class="pageHeader">
-	<form rel="pagerForm" class="well" onsubmit="return navTabSearch(this);" action="__URL__/verifylist" method="post">
+	<form rel="pagerForm" class="well" onsubmit="return navTabSearch(this);" action="__APP__/article/verifylist" method="post">
 	<div class="searchBar">
 		<input placeholder="输入文章名..." type="text" class="input-mini" name="keywords" value=""/>
 		<button class="btn btn-primary btn-mini">搜索</button>
@@ -17,7 +17,7 @@
 	<div class="panelBar">
 		<ul class="toolBar">
 			
-			<li><a title="确实要审核这些记录吗?" target="selectedTodo" rel="id[]" href="__URL__/verify" ><span><i class="icon-remove"></i> 批量审核</span></a></li>
+			<li><a title="确实要审核这些记录吗?" target="selectedTodo" rel="id[]" href="__APP__/article/verify" ><span><i class="icon-check"></i> 批量审核</span></a></li>
 
 		</ul>
 	</div>
@@ -40,7 +40,7 @@
 				    <td><{$vo.title}></td>
 				    <td><{$vo.hits}></td>
 				    <td><{$vo.inputtime|date="Y-m-d H:i:s",###}></td>
-				    <td><a href="__URL__/verify?id=<{$vo.id}>" title="审核" target="ajaxTodo" class="btn btn-mini btn-info"><i class="icon-check icon-white"></i>审核</a>
+				    <td><a href="__APP__/article/verify?id=<{$vo.id}>" title="审核" target="ajaxTodo" class="btn btn-mini btn-info"><i class="icon-check icon-white"></i>审核</a>
 				</tr>
 			</volist>
 		

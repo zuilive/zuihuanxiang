@@ -6,7 +6,7 @@
 </form>
 
 <div class="pageHeader">
-	<form rel="pagerForm" class="well" onsubmit="return navTabSearch(this);" action="__APP__/user/index" method="post">
+	<form rel="pagerForm" class="well" onsubmit="return navTabSearch(this);" action="__APP__/member/locklist" method="post">
 	<div class="searchBar">
 		<input placeholder="输入用户名..." type="text" class="input-mini" name="keywords" value=""/>
 		<button class="btn btn-primary btn-mini">搜索</button>
@@ -16,9 +16,8 @@
 <div class="pageContent">
 	<div class="panelBar">
 		<ul class="toolBar">
-			<li><a class="add" href="__APP__/user/add" rel="User_add" target="dialog"  width="500" height="550" title="添加用户"><span><i class="icon-pencil"></i> 添加用户</span></a></li>
-			<li><a title="确实要删除这些用户吗?" target="selectedTodo" rel="id[]" href="__APP__/user/del" class="delete"><span><i class="icon-remove"></i> 批量删除</span></a></li>
-		
+			<li><a class="add" href="__APP__/member/add" rel="Member_add" target="dialog" width="450" height="580" title="添加会员"><span><i class="icon-pencil"></i> 添加会员</span></a></li>
+			<li><a title="确实要解锁吗?" target="selectedTodo" rel="id[]" href="__APP__/member/unlock" class="delete"><span><i class="icon-lock"></i> 批量解锁</span></a></li>
 		</ul>
 	</div>
 	<table class="table" layoutH="138" width="100%">
@@ -27,21 +26,26 @@
 				<th><input type="checkbox" group="id[]" class="checkboxCtrl"></th>
 				<th>ID</th>
 				<th>用户名</th>
-				<th>最后登录IP</th>
-				<th>最后登录时间</th>
-				<th>管理操作</th>
+				<th>邮箱</th>
 
+				<th>最后登录时间</th>
+				<th>上次登录IP</th>
+				<th>积分</th>
+				<th>管理操作</th>
 			</tr>
 		</thead>
 		<tbody>
 			<volist name="list" id="vo">
 				<tr>
-				    <td><input value="<{$vo.id}>" name="id[]" type="checkbox"></td>
-				    <td><{$vo.id}></td>
+				    <td><input value="<{$vo.userid}>" name="id[]" type="checkbox"></td>
+				    <td><{$vo.userid}></td>
 				    <td><{$vo.username}></td>
-				    <td><{$vo.last_login_ip}></td>
-				    <td><if condition="$vo.last_login_time eq 0">未登录<else /><{$vo.last_login_time|date="Y-m-d H:i:s",###}></if></td>
-				    <td><a href="__APP__/user/edit?id=<{$vo.id}>" rel="User_edit" target="dialog"  width="500" height="550" title="编辑用户" class="btn btn-mini btn-info" ><i class="icon-edit icon-white"></i>编辑</a>  <a href="__APP__/user/del?id=<{$vo.id}>" title="删除" target="ajaxTodo" class="btn btn-mini btn-danger"><i class="icon-trash icon-white"></i>删除</a></td>
+				    <td><{$vo.email}></td>
+
+				    <td><{$vo.lastdate|date="Y-m-d H:i:s",###}></td>
+				    <td><{$vo.lastip}></td>
+				    <td><{$vo.point}></td>
+				    <td><a class="btn btn-mini btn-info" href="__APP__/member/unlock?id=<{$vo.userid}>" title="解锁？" target="ajaxTodo"><i class="icon-lock icon-white"></i>解锁</a></td>
 				</tr>
 			</volist>
 		

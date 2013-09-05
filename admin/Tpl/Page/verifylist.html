@@ -6,9 +6,9 @@
 </form>
 
 <div class="pageHeader">
-	<form rel="pagerForm" class="well" onsubmit="return navTabSearch(this);" action="__APP__/user/index" method="post">
+	<form rel="pagerForm" class="well" onsubmit="return navTabSearch(this);" action="__APP__/page/verifylist" method="post">
 	<div class="searchBar">
-		<input placeholder="输入用户名..." type="text" class="input-mini" name="keywords" value=""/>
+		<input placeholder="输入页面名..." type="text" class="input-mini" name="keywords" value=""/>
 		<button class="btn btn-primary btn-mini">搜索</button>
 	</div>
 	</form>
@@ -16,9 +16,9 @@
 <div class="pageContent">
 	<div class="panelBar">
 		<ul class="toolBar">
-			<li><a class="add" href="__APP__/user/add" rel="User_add" target="dialog"  width="500" height="550" title="添加用户"><span><i class="icon-pencil"></i> 添加用户</span></a></li>
-			<li><a title="确实要删除这些用户吗?" target="selectedTodo" rel="id[]" href="__APP__/user/del" class="delete"><span><i class="icon-remove"></i> 批量删除</span></a></li>
-		
+			
+			<li><a title="确实要审核这些记录吗?" target="selectedTodo" rel="id[]" href="__APP__/page/verify" ><span><i class="icon-check"></i> 批量审核</span></a></li>
+
 		</ul>
 	</div>
 	<table class="table" layoutH="138" width="100%">
@@ -26,22 +26,21 @@
 			<tr>
 				<th><input type="checkbox" group="id[]" class="checkboxCtrl"></th>
 				<th>ID</th>
-				<th>用户名</th>
-				<th>最后登录IP</th>
-				<th>最后登录时间</th>
-				<th>管理操作</th>
-
+				<th>标题</th>
+				<th>点击量</th>
+				<th>发布时间</th>
+				<th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
-			<volist name="list" id="vo">
+			<volist name="verifylist" id="vo">
 				<tr>
 				    <td><input value="<{$vo.id}>" name="id[]" type="checkbox"></td>
 				    <td><{$vo.id}></td>
-				    <td><{$vo.username}></td>
-				    <td><{$vo.last_login_ip}></td>
-				    <td><if condition="$vo.last_login_time eq 0">未登录<else /><{$vo.last_login_time|date="Y-m-d H:i:s",###}></if></td>
-				    <td><a href="__APP__/user/edit?id=<{$vo.id}>" rel="User_edit" target="dialog"  width="500" height="550" title="编辑用户" class="btn btn-mini btn-info" ><i class="icon-edit icon-white"></i>编辑</a>  <a href="__APP__/user/del?id=<{$vo.id}>" title="删除" target="ajaxTodo" class="btn btn-mini btn-danger"><i class="icon-trash icon-white"></i>删除</a></td>
+				    <td><{$vo.title}></td>
+				    <td><{$vo.hits}></td>
+				    <td><{$vo.inputtime|date="Y-m-d H:i:s",###}></td>
+				    <td><a href="__APP__/page/verify?id=<{$vo.id}>" title="审核" target="ajaxTodo" class="btn btn-mini btn-info"><i class="icon-check icon-white"></i>审核</a>
 				</tr>
 			</volist>
 		

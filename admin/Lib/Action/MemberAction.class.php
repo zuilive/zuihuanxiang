@@ -18,8 +18,10 @@ class MemberAction extends CommonAction{
 		//获取分页信息
 		$p = I('post.pageNum',1);	//页码
 		$numPerPage = I('post.numPerPage',15);	//每页显示条数
-		$count = $this->Member->count();	//查询满足条件的数量
-		$memberlist = $this->Member->limit(($p-1)*$numPerPage,$numPerPage)->select();
+		$map['islock'] = array('eq',0);
+		$map['checked'] = array('eq',1);
+		$count = $this->Member->where($map)->count();	//查询满足条件的数量
+		$memberlist = $this->Member->where($map)->limit(($p-1)*$numPerPage,$numPerPage)->select();
 
 		$this->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('list',$memberlist)->display();
 
@@ -89,31 +91,53 @@ class MemberAction extends CommonAction{
 		}
 	}
 
+	//会员锁定列表
+	public function locklist(){
+		$map['islock'] = array('eq','1');
+		//获取分页信息
+		$p = I('post.pageNum',1);	//页码
+		$numPerPage = I('post.numPerPage',15);	//每页显示条数
+		$count = $this->Member->where($map)->count();	//查询满足条件的数量
+		$list = $this->Member->where($map)->limit(($p-1)*$numPerPage,$numPerPage)->select();
+
+		$this->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('list',$list)->display();	
+	}
+
 
 	//会员锁定动作
 	public function lock(){
-		$id = I('get.id');
-		if ($id) {
-			$info = $this->Member->where('userid = '.$id)->find();
-			if ($info['islock'] == 1) {
-				$data['islock'] = 0;
+		if (IS_POST) {
+			$id = I('post.id');
+			$data['islock'] = 1;
+			if (is_array($id)) {
+				foreach ($id as $key => $value) {
+					$this->Member->where('userid = '.$value)->save($data);
+				}
 			}else{
-				$data['islock'] = 1;
+				$id = I('get.id');
+				$this->Member->where('userid = '.$id)->save($data);
 			}
-			
-			if (false !== $this->Member->where('userid = '.$id)->save($data)) {
-				$status = array('statusCode'=>200,'message'=>'锁定成功！','navTabId'=>'','rel'=>'','callbackType'=>'','forwardUrl'=>'');
-				echo json_encode($status);
-			}else{
-				$status = array('statusCode'=>300,'message'=>'锁定失败！','navTabId'=>'','rel'=>'','callbackType'=>'','forwardUrl'=>'');
-				echo json_encode($status);
-			}
-		}else{
-			$map['islock'] = array('eq','1');
-			$list = $this->Member->where($map)->select();
-			$this->assign('list',$list)->display();
+			$status = array('statusCode'=>200,'message'=>'锁定成功！','navTabId'=>'','rel'=>'','callbackType'=>'','forwardUrl'=>'');
+			echo json_encode($status);
 		}
-		
+	}
+
+	//会员解锁动作
+	public function unlock(){
+		if (IS_POST) {
+			$id = I('post.id');
+			$data['islock'] = 0;
+			if (is_array($id)) {
+				foreach ($id as $key => $value) {
+					$this->Member->where('userid = '.$value)->save($data);
+				}
+			}else{
+				$id = I('get.id');
+				$this->Member->where('userid = '.$id)->save($data);
+			}
+			$status = array('statusCode'=>200,'message'=>'解锁成功！','navTabId'=>'','rel'=>'','callbackType'=>'','forwardUrl'=>'');
+			echo json_encode($status);
+		}
 	}
 
 	//空操作
