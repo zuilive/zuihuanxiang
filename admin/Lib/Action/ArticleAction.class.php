@@ -67,9 +67,7 @@ class ArticleAction extends CommonAction{
 			if ($this->Article->create()) {	//验证信息
 				if ($id = $this->Article->add()) {
 					$this->tags($id,I('tags',''));	//添加标签
-					
-					//$this->sitemap();	//网站地图
-					//$this->rss();	//生成rss
+
 					$status = array('statusCode'=>200,'message'=>'文章添加成功！','navTabId'=>'','rel'=>'Article_add','callbackType'=>'closeCurrent','forwardUrl'=>'');
 					echo json_encode($status);
 				}else{
@@ -129,7 +127,7 @@ class ArticleAction extends CommonAction{
 				
 			}
 		}
-		//$this->sitemap();
+
 	}
 
 	//文章编辑动作
@@ -227,8 +225,7 @@ class ArticleAction extends CommonAction{
 				$id = I('get.id');
 				$this->Article->delete($id);
 			}
-			//$this->rss();
-			//$this->sitemap();
+
 			$status = array('statusCode'=>200,'message'=>'彻底删除成功！','navTabId'=>'','rel'=>'','callbackType'=>'','forwardUrl'=>'');
 			echo json_encode($status);
 		}
@@ -275,62 +272,6 @@ class ArticleAction extends CommonAction{
 		$savepath = __ROOT__.'/Upload/'.$savename;
 		$thumb = array('thumb'=>$savename,'savepath'=>$savepath);
 		echo json_encode($thumb);
-	}
-
-	//生成地图
-	public function sitemap(){
-		import('ORG.Net.SitemapGenerator');
-		// create object
-        $sitemap = new SitemapGenerator("http://your.app.com/");
-
-        // add urls
-        //首页链接
-        $siteinfo = M('Config')->select();
-        $sitemap->addUrl($siteinfo['1']['value'],date('c'),'daily','1');
-        
-        //分类链接
-        $Category = M('Category')->where('status = 1')->select();
-        $url = 0;
-        foreach ($Category as $key => $value) {
-        	$url = $siteinfo['1']['value'].'/'.$value['url'];
-        	$sitemap->addUrl($url,date('c'),'daily','0.5');
-        }
-
-        //文章链接
-        $post = D('ArticleView')->select();
-        $url = 0;
-        foreach ($post as $key => $value) {
-        	$url = $siteinfo['1']['value'].'/'.$value['curl'].'/'.$value['url'];
-        	$sitemap->addUrl($url,date('c'),'daily');
-        }
-
-        // create sitemap
-        $sitemap->createSitemap();
-
-        // write sitemap as file
-        $sitemap->writeSitemap();
-
-        // submit sitemaps to search engines
-        $sitemap->submitSitemap();
-	}
-
-	//生成Rss
-	public function rss(){
-		import('ORG.Util.Rss');
-		$siteinfo = M('Config')->select();
-		$RssConf = array(
-			'channelTitle' => $siteinfo['0']['value'],
-			'channelLink'=> $siteinfo['1']['value'],
-			'copyright'=>'zuilive'
-			);
-
-		$post = D('ArticleView')->select();
-		$RSS = new Rss($RssConf);
-		foreach ($post as $k => $v) {
-			$RSS->AddItem($v['title'],$v['id'],$v['description'],$v['updatetime'],$v['id'],'作者zuilive','分类');
-		}
-
-		$RSS->SaveToFile('rss.xml');
 	}
 
 	public function _empty(){
