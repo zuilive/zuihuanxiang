@@ -9,6 +9,7 @@ class SitemapAction extends CommonAction{
 		$this->display();
 	}
 
+	//生成动作
 	public function start(){
 		$this->sitemap();
 		$this->rss();
