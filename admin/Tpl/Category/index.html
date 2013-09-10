@@ -1,4 +1,4 @@
-<form id="pagerForm" method="post" action="#rel#">
+<form id="pagerForm" method="post" action="__URL__/index">
 	<input type="hidden" name="pageNum" value="1" />
 	<input type="hidden" name="numPerPage" value="<{$numPerPage}>" />
 	<input type="hidden" name="orderField" value="" />
@@ -6,12 +6,6 @@
 </form>
 
 <div class="pageHeader">
-	<form rel="pagerForm" class="well" onsubmit="return navTabSearch(this);" action="__URL__/index" method="post">
-	<div class="searchBar">
-		<input placeholder="输入分类名..." type="text" class="input-mini" name="keywords" value=""/>
-		<button class="btn btn-primary btn-mini">搜索</button>
-	</div>
-	</form>
 </div>
 <div class="pageContent">
 	<div class="panelBar">
@@ -21,7 +15,7 @@
 		
 		</ul>
 	</div>
-	<table class="table" layoutH="138" width="100%">
+	<table class="table" layoutH="81" width="100%">
 		<thead>
 			<tr>
 				<th><input type="checkbox" group="id[]" class="checkboxCtrl"></th>
@@ -57,19 +51,4 @@
 		
 		</tbody>
 	</table>
-	<div class="panelBar panBar">
-		<div class="pages">
-			<span>显示</span>
-			<select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
-				<option value="15" <eq name="numPerPage" value="15">selected="selected"</eq> >15</option>
-				<option value="50" <eq name="numPerPage" value="50">selected="selected"</eq> >50</option>
-				<option value="100" <eq name="numPerPage" value="100">selected="selected"</eq> >100</option>
-				<option value="200" <eq name="numPerPage" value="200">selected="selected"</eq> >200</option>
-			</select>
-			<span>条，共<{$count}>条</span>
-		</div>
-		
-		<div class="pagination" targetType="navTab" totalCount="<{$count}>" numPerPage="<{$numPerPage}>" pageNumShown="5" currentPage="<{$p}>"></div>
-
-	</div>
 </div>

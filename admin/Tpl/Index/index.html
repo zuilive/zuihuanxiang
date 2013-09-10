@@ -26,6 +26,25 @@
 <script src="__TEMPLATE__/Public/jui/js/dwz.regional.zh.js" type="text/javascript"></script>
 <script type="text/javascript" src="__PUBLIC__/js/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/ueditor/ueditor.all.min.js"></script>
+
+<!--图片上传-->
+<script src="__PUBLIC__/js/uploadify/scripts/jquery.uploadify.min.js"></script>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/uploadify/css/uploadify.css">
+
+<!--消息提示-->
+<script type="text/javascript" src="__TEMPLATE__/Public/js/messenger.min.js"></script>
+<link rel="stylesheet" type="text/css" href="__TEMPLATE__/Public/style/messenger.css">
+<link rel="stylesheet" type="text/css" href="__TEMPLATE__/Public/style/messenger-theme-future.css">
+
+<!--树-->
+<script type="text/javascript" src="__TEMPLATE__/Public/js/jquery.ztree.core-3.5.min.js"></script>
+<script type="text/javascript" src="__TEMPLATE__/Public/js/jquery.ztree.excheck-3.5.min.js"></script>
+<link rel="stylesheet" href="__TEMPLATE__/Public/style/demo.css" type="text/css">
+<link rel="stylesheet" href="__TEMPLATE__/Public/style/zTreeStyle/zTreeStyle.css" type="text/css">
+
+<!--jPlyer-->
+<script type="text/javascript" src="__PUBLIC__/js/jPlayer/jquery.jplayer.min.js"></script>
+
 <script type="text/javascript">
 $(function(){
 	DWZ.init("__TEMPLATE__/Public/jui/dwz.frag.xml", {
@@ -39,24 +58,44 @@ $(function(){
 			$("#themeList").theme({themeBase:"themes"}); // themeBase 相对于index页面的主题base路径
 		}
 	});
-});
 
+	setInterval(getmessage,1000*200);	//定时获取信息
+ 	
+ 	//jplayer
+	$("#jplayer").jPlayer({ 
+	    swfPath: "__PUBLIC__/js/jPlayer/Jplayer.swf", 
+	      ready: function () { 
+	        $(this).jPlayer("setMedia", { 
+	          mp3: "__PUBLIC__/js/jPlayer/message.mp3" 
+	        }); 
+	      }, 
+	      supplied: "mp3" 
+	    });
+});
+	
+	//获取消息
+	function getmessage(){
+		$.ajax({
+		  url: "",
+		  success: function() {
+		  	$.globalMessenger().post({
+		  		message:'有新消息！',
+		  		type:'success',
+		  		showCloseButton:true,	//显示关闭按钮
+		  		hideAfter:130,	//关闭时间
+		  		hideOnNavigate:true,
+		  	});
+		  	$("#jplayer").jPlayer('play');;
+		  }
+		});
+	}
+	
 </script>
 
-<!--图片上传-->
-<script src="__PUBLIC__/js/uploadify/scripts/jquery.uploadify.min.js"></script>
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/uploadify/css/uploadify.css">
 
-
-
-<script type="text/javascript" src="__TEMPLATE__/Public/js/jquery.ztree.core-3.5.min.js"></script>
-<script type="text/javascript" src="__TEMPLATE__/Public/js/jquery.ztree.excheck-3.5.min.js"></script>
-<link rel="stylesheet" href="__TEMPLATE__/Public/style/demo.css" type="text/css">
-<link rel="stylesheet" href="__TEMPLATE__/Public/style/zTreeStyle/zTreeStyle.css" type="text/css">
 </head>
-
-
-<body scroll="no">
+<body scroll="no" >
+	<div id="jplayer"></div>
 	<div id="layout">
 		<div id="header">
 			<div class="headerNav">

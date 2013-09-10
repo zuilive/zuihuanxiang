@@ -15,12 +15,14 @@ class InlinkAction extends CommonAction{
 		//获取分页信息
 		$p = I('post.pageNum',1);	//页码
 		$numPerPage = I('post.numPerPage',15);	//每页显示条数
+		$keywords = I('post.keywords','');	//获取关键词
 
-		$count = $this->Inlink->count();	//查询满足条件的数量
+		$map['name'] = array('like','%'.$keywords.'%');
+		$count = $this->Inlink->where($map)->count();	//查询满足条件的数量
 
-		$inlinklist = $this->Inlink->order('id desc')->limit(($p-1)*$numPerPage,$numPerPage)->select();
+		$inlinklist = $this->Inlink->where($map)->order('id desc')->limit(($p-1)*$numPerPage,$numPerPage)->select();
 
-		$this->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('inlinklist',$inlinklist)->display();
+		$this->assign('keywords',$keywords)->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('inlinklist',$inlinklist)->display();
 
 	}
 	//内链添加动作

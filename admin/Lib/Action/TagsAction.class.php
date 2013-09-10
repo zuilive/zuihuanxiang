@@ -16,13 +16,13 @@ class TagsAction extends CommonAction{
 	//标签列表显示动作
 	public function index(){
 		import('ORG.Util.Page');	//导入分页类
-		$count = $this->Tags->count();	//查询满足条件的数量
-		$Page = new Page($count,15);	//实例化分页类 设置没有条数
-		$Page->setConfig('theme','<span style="float:left;line-height:34px;margin-right:10px;">%totalRow% %header% %nowPage%/%totalPage%页</span> <ul> %upPage% %first% %prePage% %linkPage% %nextPage% %end% %downPage%</ul>');
-		$show = $Page->show();	//分页显示
-		$list = $this->Tags->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
-		$this->assign('list',$list)->assign('page',$show)->display();
+		$keywords = I('post.keywords','');	//获取关键词
+		$map['name'] = array('like','%'.$keywords.'%');
 
+		$count = $this->Tags->where($map)->count();	//查询满足条件的数量
+		$list = $this->Tags->where($map)->order('id desc')->limit(($p-1)*$numPerPage,$numPerPage)->select();
+
+		$this->assign('keywords',$keywords)->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('list',$list)->display();
 	}
 
 	//添加标签动作

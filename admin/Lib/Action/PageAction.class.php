@@ -19,13 +19,15 @@ class PageAction extends CommonAction{
 		//获取分页信息
 		$p = I('post.pageNum',1);	//页码
 		$numPerPage = I('post.numPerPage',15);	//每页显示条数
-		
+		$keywords = I('post.keywords','');	//获取关键词
+
+		$map['title'] = array('like','%'.$keywords.'%');
 		$map['status'] = array('eq','1');
 		$map['type'] = array('like','%page%');
 		$count = $this->Article->where($map)->count();	//查询满足条件的数量
 		$articlelist = $this->Article->where($map)->order('id desc')->limit(($p-1)*$numPerPage,$numPerPage)->select();
 
-		$this->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('list',$articlelist)->display();
+		$this->assign('keywords',$keywords)->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('list',$articlelist)->display();
 	}
 
 	//审核页面列表
@@ -33,28 +35,33 @@ class PageAction extends CommonAction{
 		//获取分页信息
 		$p = I('post.pageNum',1);	//页码
 		$numPerPage = I('post.numPerPage',15);	//每页显示条数
+		$keywords = I('post.keywords','');	//获取关键词
 
 		//获取审核文章信息
 		$map['status'] = array('eq','2');
 		$map['type'] = array('like','%page%');
+		$map['title'] = array('like','%'.$keywords.'%');
 		$count = $this->Article->where($map)->count();
 
 		$verifylist = $this->Article->where($map)->order('id desc')->limit(($p-1)*$numPerPage,$numPerPage)->select();
-		$this->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('verifylist',$verifylist)->display();
+		$this->assign('keywords',$keywords)->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('verifylist',$verifylist)->display();
 	}
 
 	//回收站页面列表
 	public function recyclelist(){
-		//获取回收站页面信息
+		//获取分页信息
+		$p = I('post.pageNum',1);	//页码
+		$numPerPage = I('post.numPerPage',15);	//每页显示条数
+		$keywords = I('post.keywords','');	//获取关键词
+
+		//获取审核文章信息
 		$map['status'] = array('eq',3);
 		$map['type'] = array('like','%page%');
+		$map['title'] = array('like','%'.$keywords.'%');
 		$count = $this->Article->where($map)->count();
-		$Page = new Page($count,15);
-		$Page->setConfig('theme','<span style="float:left;line-height:34px;margin-right:10px;">%totalRow% %header% %nowPage%/%totalPage%页</span> <ul> %upPage% %first% %prePage% %linkPage% %nextPage% %end% %downPage%</ul>');
-		$show3 = $Page->show();
-		$recyclelist = $this->Article->where($map)->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
 
-		$this->assign('recyclelist',$recyclelist)->assign('page3',$show3)->display();
+		$verifylist = $this->Article->where($map)->order('id desc')->limit(($p-1)*$numPerPage,$numPerPage)->select();
+		$this->assign('keywords',$keywords)->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('verifylist',$verifylist)->display();
 	}
 
 	//页面添加动作

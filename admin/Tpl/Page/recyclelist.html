@@ -8,7 +8,7 @@
 <div class="pageHeader">
 	<form rel="pagerForm" class="well" onsubmit="return navTabSearch(this);" action="__APP__/page/recyclelist" method="post">
 	<div class="searchBar">
-		<input placeholder="输入文章名..." type="text" class="input-mini" name="keywords" value=""/>
+		<input placeholder="输入页面名..." value="<{$keywords}>" type="text" class="input-mini" name="keywords" value=""/>
 		<button class="btn btn-primary btn-mini">搜索</button>
 	</div>
 	</form>
@@ -21,7 +21,7 @@
 			<li><a title="确实要还原这些记录吗?" target="selectedTodo" rel="id[]" href="__APP__/page/recovery" class="delete"><span><i class="icon-retweet"></i> 批量还原</span></a></li>
 		</ul>
 	</div>
-	<table class="table" layoutH="138" width="100%">
+	<table class="table" layoutH="130" width="100%">
 		<thead>
 			<tr>
 				<th><input type="checkbox" group="id[]" class="checkboxCtrl"></th>

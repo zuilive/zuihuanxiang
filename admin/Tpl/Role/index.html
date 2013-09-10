@@ -8,7 +8,7 @@
 <div class="pageHeader">
 	<form rel="pagerForm" class="well" onsubmit="return navTabSearch(this);" action="__APP__/role/index" method="post">
 	<div class="searchBar">
-		<input placeholder="输入文章名..." type="text" class="input-mini" name="keywords" value=""/>
+		<input placeholder="输入角色名..." value="<{$keywords}>" type="text" class="input-mini" name="keywords" value=""/>
 		<button class="btn btn-primary btn-mini">搜索</button>
 	</div>
 	</form>
@@ -16,12 +16,13 @@
 <div class="pageContent">
 	<div class="panelBar">
 		<ul class="toolBar">
-			<li><a class="add" href="__APP__/role/add" rel="Article_add" target="dialog"  width="500" height="400" title="添加角色"><span><i class="icon-pencil"></i> 添加角色</span></a></li>
+			<li><a class="add" href="__APP__/role/add" rel="Role_add" target="dialog"  width="500" height="400" title="添加角色"><span><i class="icon-pencil"></i> 添加角色</span></a></li>
 			<li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="id[]" href="__APP__/article/del" class="delete"><span><i class="icon-remove"></i> 批量删除</span></a></li>
+			<li><a class="add" href="__APP__/role/addnode" rel="Role_addnode" target="dialog"  width="500" height="520" title="添加操作节点"><span><i class="icon-leaf"></i> 添加操作节点</span></a></li>
 		
 		</ul>
 	</div>
-	<table class="table" layoutH="138" width="100%">
+	<table class="table" layoutH="130" width="100%">
 		<thead>
 			<tr>
 				<th><input type="checkbox" group="id[]" class="checkboxCtrl"></th>

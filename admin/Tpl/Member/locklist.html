@@ -8,7 +8,7 @@
 <div class="pageHeader">
 	<form rel="pagerForm" class="well" onsubmit="return navTabSearch(this);" action="__APP__/member/locklist" method="post">
 	<div class="searchBar">
-		<input placeholder="输入用户名..." type="text" class="input-mini" name="keywords" value=""/>
+		<input placeholder="输入会员名..." value="<{$keywords}>" type="text" class="input-mini" name="keywords" value=""/>
 		<button class="btn btn-primary btn-mini">搜索</button>
 	</div>
 	</form>
@@ -20,7 +20,7 @@
 			<li><a title="确实要解锁吗?" target="selectedTodo" rel="id[]" href="__APP__/member/unlock" class="delete"><span><i class="icon-lock"></i> 批量解锁</span></a></li>
 		</ul>
 	</div>
-	<table class="table" layoutH="138" width="100%">
+	<table class="table" layoutH="130" width="100%">
 		<thead>
 			<tr>
 				<th><input type="checkbox" group="id[]" class="checkboxCtrl"></th>

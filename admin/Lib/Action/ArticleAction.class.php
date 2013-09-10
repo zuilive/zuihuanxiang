@@ -13,6 +13,9 @@ class ArticleAction extends CommonAction{
 		$this->Article = D('Article');
 		import('ORG.Util.Page');	//导入分页类
 	}
+	public function image(){
+		$this->display();
+	}
 
 	//文章管理动作
 	public function index(){
@@ -20,14 +23,16 @@ class ArticleAction extends CommonAction{
 		//获取分页信息
 		$p = I('post.pageNum',1);	//页码
 		$numPerPage = I('post.numPerPage',15);	//每页显示条数
+		$keywords = I('post.keywords','');	//获取关键词
 		
 		$map['status'] = array('eq','1');
 		$map['type'] = array('like','%article%');
+		$map['title'] = array('like','%'.$keywords.'%');
 		$count = $this->Article->where($map)->count();	//查询满足条件的数量
 
 		$articlelist = $this->Article->where($map)->order('id desc')->limit(($p-1)*$numPerPage,$numPerPage)->select();
 
-		$this->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('list',$articlelist)->display();
+		$this->assign('keywords',$keywords)->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('list',$articlelist)->display();
 	}
 
 	//审核文章列表
@@ -35,14 +40,16 @@ class ArticleAction extends CommonAction{
 		//获取分页信息
 		$p = I('post.pageNum',1);	//页码
 		$numPerPage = I('post.numPerPage',15);	//每页显示条数
+		$keywords = I('post.keywords','');	//获取关键词
 
 		//获取审核文章信息
 		$map['status'] = array('eq','2');
 		$map['type'] = array('like','%article%');
+		$map['title'] = array('like','%'.$keywords.'%');
 		$count = $this->Article->where($map)->count();
 
 		$verifylist = $this->Article->where($map)->order('id desc')->limit(($p-1)*$numPerPage,$numPerPage)->select();
-		$this->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('verifylist',$verifylist)->display();
+		$this->assign('keywords',$keywords)->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('verifylist',$verifylist)->display();
 	}
 
 	//回收站文章列表
@@ -50,15 +57,17 @@ class ArticleAction extends CommonAction{
 		//获取分页信息
 		$p = I('post.pageNum',1);	//页码
 		$numPerPage = I('post.numPerPage',15);	//每页显示条数
+		$keywords = I('post.keywords','');	//获取关键词
 
 		//获取回收站文章信息
 		$map['status'] = array('eq',3);
 		$map['type'] = array('like','%article%');
+		$map['title'] = array('like','%'.$keywords.'%');
 		$count = $this->Article->where($map)->count();
 		
 		$recyclelist = $this->Article->where($map)->order('id desc')->limit(($p-1)*$numPerPage,$numPerPage)->select();
 
-		$this->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('recyclelist',$recyclelist)->display();
+		$this->assign('keywords',$keywords)->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('recyclelist',$recyclelist)->display();
 	}
 	
 	//文章添加动作

@@ -8,7 +8,7 @@
 <div class="pageHeader">
 	<form rel="pagerForm" class="well" onsubmit="return navTabSearch(this);" action="__APP__/user/index" method="post">
 	<div class="searchBar">
-		<input placeholder="输入用户名..." type="text" class="input-mini" name="keywords" value=""/>
+		<input placeholder="输入用户名..." value="<{$keywords}>" type="text" class="input-mini" name="keywords" value=""/>
 		<button class="btn btn-primary btn-mini">搜索</button>
 	</div>
 	</form>
@@ -21,7 +21,7 @@
 		
 		</ul>
 	</div>
-	<table class="table" layoutH="138" width="100%">
+	<table class="table" layoutH="130" width="100%">
 		<thead>
 			<tr>
 				<th><input type="checkbox" group="id[]" class="checkboxCtrl"></th>

@@ -18,12 +18,15 @@ class MemberAction extends CommonAction{
 		//获取分页信息
 		$p = I('post.pageNum',1);	//页码
 		$numPerPage = I('post.numPerPage',15);	//每页显示条数
+		$keywords = I('post.keywords','');	//获取关键词
+
 		$map['islock'] = array('eq',0);
 		$map['checked'] = array('eq',1);
+		$map['username'] = array('like','%'.$keywords.'%');
 		$count = $this->Member->where($map)->count();	//查询满足条件的数量
 		$memberlist = $this->Member->where($map)->limit(($p-1)*$numPerPage,$numPerPage)->select();
 
-		$this->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('list',$memberlist)->display();
+		$this->assign('keywords',$keywords)->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('list',$memberlist)->display();
 
 	}
 
@@ -62,17 +65,21 @@ class MemberAction extends CommonAction{
 
 	//审核会员列表
 	public function checklist(){
-		$map['checked'] = array('eq','0');
 		//获取分页信息
 		$p = I('post.pageNum',1);	//页码
 		$numPerPage = I('post.numPerPage',15);	//每页显示条数
+		$keywords = I('post.keywords','');	//获取关键词
+
+		$map['username'] = array('like','%'.$keywords.'%');
+		$map['checked'] = array('eq','0');
+
 		$count = $this->Member->where($map)->count();	//查询满足条件的数量
 		$list = $this->Member->where($map)->limit(($p-1)*$numPerPage,$numPerPage)->select();
 
-		$this->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('list',$list)->display();
+		$this->assign('keywords',$keywords)->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('list',$list)->display();
 	}
 
-	//会员审核显示动作
+	//会员审核动作
 	public function checked(){
 		
 		if (IS_POST) {
@@ -93,14 +100,18 @@ class MemberAction extends CommonAction{
 
 	//会员锁定列表
 	public function locklist(){
-		$map['islock'] = array('eq','1');
 		//获取分页信息
 		$p = I('post.pageNum',1);	//页码
 		$numPerPage = I('post.numPerPage',15);	//每页显示条数
+		$keywords = I('post.keywords','');	//获取关键词
+
+		$map['username'] = array('like','%'.$keywords.'%');
+		$map['islock'] = array('eq','1');
+
 		$count = $this->Member->where($map)->count();	//查询满足条件的数量
 		$list = $this->Member->where($map)->limit(($p-1)*$numPerPage,$numPerPage)->select();
 
-		$this->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('list',$list)->display();	
+		$this->assign('keywords',$keywords)->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('list',$list)->display();	
 	}
 
 

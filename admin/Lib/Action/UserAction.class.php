@@ -15,11 +15,14 @@ class UserAction extends CommonAction{
 		//获取分页信息
 		$p = I('post.pageNum',1);	//页码
 		$numPerPage = I('post.numPerPage',15);	//每页显示条数
-		
-		$count = $this->User->count();
-		$list = $this->User->order('id desc')->limit(($p-1)*$numPerPage,$numPerPage)->select();
+		$keywords = I('post.keywords','');	//获取关键词
 
-		$this->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('list',$list)->display();
+		$map['username'] = array('like','%'.$keywords.'%');
+		
+		$count = $this->User->where($map)->count();
+		$list = $this->User->where($map)->order('id desc')->limit(($p-1)*$numPerPage,$numPerPage)->select();
+
+		$this->assign('keywords',$keywords)->assign('p',$p)->assign('numPerPage',$numPerPage)->assign('count',$count)->assign('list',$list)->display();
 	}
 	
 	//添加管理员动作

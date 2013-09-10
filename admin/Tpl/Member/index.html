@@ -8,7 +8,7 @@
 <div class="pageHeader">
 	<form rel="pagerForm" class="well" onsubmit="return navTabSearch(this);" action="__APP__/member/index" method="post">
 	<div class="searchBar">
-		<input placeholder="输入用户名..." type="text" class="input-mini" name="keywords" value=""/>
+		<input placeholder="输入会员名..." value="<{$keywords}>" type="text" class="input-mini" name="keywords" value=""/>
 		<button class="btn btn-primary btn-mini">搜索</button>
 	</div>
 	</form>
@@ -23,7 +23,7 @@
 		
 		</ul>
 	</div>
-	<table class="table" layoutH="138" width="100%">
+	<table class="table" layoutH="130" width="100%">
 		<thead>
 			<tr>
 				<th><input type="checkbox" group="id[]" class="checkboxCtrl"></th>
@@ -48,7 +48,7 @@
 				    <td><{$vo.lastdate|date="Y-m-d H:i:s",###}></td>
 				    <td><{$vo.lastip}></td>
 				    <td><{$vo.point}></td>
-				    <td><a class="btn btn-mini btn-info" href="__APP__/member/edit?id=<{$vo.userid}>"><i class="icon-edit icon-white"></i>修改</a> <a href="__APP__/member/lock?id=<{$vo.userid}>" class="btn btn-mini btn-warning" title="锁定？" target="ajaxTodo"><i class="icon-lock icon-white"></i>锁定</a></td>
+				    <td><a class="btn btn-mini btn-info" href="__APP__/member/edit?id=<{$vo.userid}>" width="500" height="580" target="dialog" rel="Member_edit"><i class="icon-edit icon-white"></i>修改</a> <a href="__APP__/member/lock?id=<{$vo.userid}>" class="btn btn-mini btn-warning" title="锁定？" target="ajaxTodo"><i class="icon-lock icon-white"></i>锁定</a></td>
 				</tr>
 			</volist>
 		
