@@ -41,6 +41,11 @@ class IndexAction extends CommonAction{
         }
     }
 
+    public function sidebar(){
+        $content = '<div class="accordion dwz-accordion" fillspace="sideBar"><ul><li><a href="'.__APP__.'/Index/index" target="navTab" rel="Index_index">首页</a></li></ul></div>';
+        $this->show($content);
+    }
+
     public function delcache(){
         $abs_dir=dirname(dirname(dirname(dirname(__FILE__))));
         //这里主要是为了得到项目的根目录，绝对路径

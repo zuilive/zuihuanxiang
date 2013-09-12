@@ -57,7 +57,7 @@ a:hover {text-decoration:underline;}
 .tabs .tabsHeader li.selected { background-position:0 -550px;}
 .tabs .tabsHeader li.selected a { background-position:0 -450px;}
 .tabs .tabsHeader li.selected span { font-weight:bold; background-position:100% -500px;}
-.tabs .tabsContent { display:block; overflow:auto; padding:5px 5px 1px 5px; border-style:solid; border-width:0 1px;}
+.tabs .tabsContent { display:block; overflow:auto; padding:5px 5px 1px 5px; }
 .tabs .tabsFooter { display:block; overflow:hidden; height:5px; background-position:0 -600px;}
 .tabs .tabsFooterContent { display:block; overflow:hidden; height:5px; background-position:100% -650px;}
 
@@ -362,8 +362,8 @@ table.nowrap tbody tr {border-bottom:solid 1px #ededed;}
 #taskbar { overflow:hidden; height:29px; border-style:solid; border-width: 0; border-color:#0f3255; background-color:#112746; background-repeat:repeat-x; position:absolute; z-index:30;}
 #taskbar .taskbarContent { display:block; overflow:hidden; height:29px; position:relative;}
 #taskbar .taskbarMargin { margin:0 20px;}
-#taskbar ul { position:absolute; width:10000px;}
-#taskbar li { float:left; height:27px; margin-left:2px; padding-left:5px; background-position:0 -50px; position:relative; cursor:pointer;}
+#taskbar ul { position:absolute; width:10000px;background: #49AFCD}
+#taskbar li { float:left; height:27px; margin-left:2px; padding-left:5px;  position:relative; cursor:pointer;}
 #taskbar li .taskbutton { float:left; display:block; overflow:hidden; height:27px; background-position:100% -100px;}
 #taskbar li .taskbutton span { display:block; overflow:hidden; width:70px; height:27px; line-height:29px; padding:0 25px 0 20px; background-position:3px -42px;}
 

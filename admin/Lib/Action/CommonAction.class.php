@@ -30,37 +30,12 @@ class CommonAction extends Action{
 		$this->assign('siteinfo',$siteinfo);
 		//获取所有节点
 		$Node = M('Node')->where('status = 1')->select();
+		$map['status'] = array('eq',1);
+		$map['type'] = array('eq',1);
 		//获取菜单信息
-		$Menu = M('Menu')->where('status = 1')->order('id')->select();
+		$Menu = M('Menu')->where($map)->order('id')->select();
 
-		if (!$_SESSION['administrator']) {
-			//获取后台权限的信息
-			$Admin = $_SESSION['_ACCESS_LIST']['ADMIN'];
-			$Modul = '';
-			$Action = '';
-			$i = 0;
-			$t = 0;
-			foreach ($Admin as $key => $value) {
-				$Modul[$i] = $key;
-				foreach ($value as $akey => $avalue) {
-					$Action[$key][$t++] = $akey;
-				}
-				$i++;
-			}
-			foreach ($Menu as $key => $value) {
-				$Mo = strtoupper($value['model']);
-				
-					if (!in_array(strtoupper($value['model']),$Model) && !in_array(strtoupper($value['action']), $Action[$Mo])) {
-					unset($Menu[$key]);
-					}
-				
-				
-			}
-		}
-		
-		//dump($Menu);
-		$this->assign('adminmenu',$Menu);
-		
+		$this->assign('mainMenu',$Menu);	
 	}
 }
 

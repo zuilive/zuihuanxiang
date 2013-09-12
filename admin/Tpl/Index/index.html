@@ -109,6 +109,16 @@ $(function(){
 			</div>
 
 			<!-- navMenu -->
+			<div id="navMenu">
+				<ul>
+					
+					<volist name="mainMenu" id="vo">
+						
+						<li><a href="__APP__/Public/sidebar?id=<{$vo['id']}>"><span><{$vo['name']}></span></a></li>
+						
+					</volist>
+				</ul>
+			</div>
 			
 		</div>
 
@@ -121,32 +131,7 @@ $(function(){
 			<div id="sidebar">
 				<div class="toggleCollapse"><h2>主菜单</h2><div class="icon-chevron-left icon-white"></div></div>
 
-				<div class="accordion" fillSpace="sidebar">
-
-					
-					<volist name="adminmenu" id="vo">
-						<eq name="vo['type']" value="1">
-							<neq name="i" value="1">
-								</ul>
-								</div>
-							</neq>
-							<div class="accordionHeader">
-								<i class="<{$vo['ico']}> icon-white"></i> <span><{$vo['name']}></span>
-							</div>
-							<div class="accordionContent">
-							<ul class="nav nav-tabs nav-stacked">
-						</eq>
-
-						<eq name="vo['type']" value="2">
-							
-							<li><a href="__APP__/<{$vo['model']}>/<{$vo['action']}>" target="navTab" rel="<{$vo['model']}>_<{$vo['action']}>"> <{$vo['name']}></a></li>
-							
-						</eq>
-					</volist>
-						</div>
-					
-					
-				</div>
+				
 
 			</div>
 
