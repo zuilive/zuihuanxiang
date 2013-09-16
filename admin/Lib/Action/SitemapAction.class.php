@@ -38,11 +38,19 @@ class SitemapAction extends CommonAction{
         //文章链接
         $armap['status'] = array('eq',1);
         $armap['type'] = array('eq','article');
-        $post = D('ArticleView')->where($map)->select();
+        $post = D('ArticleView')->where($armap)->select();
         $url = 0;
         foreach ($post as $key => $value) {
         	$url = $siteinfo['1']['value'].'/'.$value['curl'].'/'.$value['url'].'.html';
         	$sitemap->addUrl($url,date('c'),'daily');
+        }
+
+        //标签链接
+        $tags = M('Tags')->select();
+        $url = 0;
+        foreach ($tags as $key => $value) {
+        	$url = $siteinfo['1']['value'].'/tags/'.$value['urlname'];
+        	$sitemap->addUrl($url,date('c'));
         }
 
         // create sitemap
